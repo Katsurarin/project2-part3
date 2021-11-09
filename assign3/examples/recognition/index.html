@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>01_basics</title>
+
+    <script src="p5.js"></script>
+    <script src="p5.dom.js"></script>
+    <script src="p5.speech.js"></script>
+
+    <script>
+        let speech;
+
+        function setup() {
+            noCanvas();
+            speechRec = new p5.SpeechRec('en-US', gotSpeech);
+            let continuous = true;
+            let interimResults = false;
+
+            speechRec.start(continuous, interimResults);
+
+            let output = select('#speech');
+
+            function gotSpeech() {
+
+                console.log(speechRec);
+                if (speechRec.resultValue) {
+                    let said = speechRec.resultString;
+                    output.html(said);
+                }
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>p5.Speech Recognition</h1>
+
+    <h3>Say something...</h3>
+    <p id="speech"></p>
+
+
+
+
+
+
+</body>
+
+</html>

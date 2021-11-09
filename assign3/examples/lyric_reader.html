@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="../lib/p5.speech.js"></script>
+    <script>
+        //framework used
+        var myVoice = new p5.Speech('Google UK English Female', speechLoaded);
+
+        myVoice.onStart = speechStarted;
+        myVoice.onEnd = speechEnded;
+
+        var lyric = "I'm mad at Disney, Disney.They tricked me, tricked me.Had me wishing on a shooting star.But now I'm twenty-something,I still know nothing About who I am or what I'm not.";
+
+        var speakbutton;
+
+        function setup() {
+            createCanvas(688, 688);
+
+            speakbutton = createButton('Speak');
+            speakbutton.position(324, 344);
+            speakbutton.mousePressed(buttonClicked);
+
+        }
+
+        function buttonClicked() {
+            if (speakbutton.elt.innerHTML == 'Speak') myVoice.speak(lyric);
+            else if (speakbutton.elt.innerHTML == 'Stop') myVoice.stop();
+        }
+
+        function speechLoaded() {
+            myVoice.speak("testing one two three!!!");
+        }
+
+        function speechStarted() {
+            background('#67A2E0');
+            speakbutton.elt.innerHTML = 'Stop';
+        }
+
+        function speechEnded() {
+            background('#FFCFDB');
+            speakbutton.elt.innerHTML = 'Speak';
+        }
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

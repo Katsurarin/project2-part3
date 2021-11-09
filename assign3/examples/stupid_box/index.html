@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="p5.min.js"></script>
+    <script src="lib/p5.dom.min.js"></script>
+    <script src="lib/p5.sound.min.js"></script>
+</head>
+
+<body>
+    <script src="p5.speech.js"></script>
+    <script>
+        let speechRec;
+        let square;
+
+        function setup() {
+            createCanvas(688, 688);
+            var myv = new p5.Speech('en-US');
+            speechRec = new p5.SpeechRec(gotSpeech);
+            let continuous = true;
+            let interimResults = true;
+            speechRec.start(continuous, interimResults);
+
+            function gotSpeech(speech) {
+
+                if (speech.text.includes("l")) square.moveLeft(speech.text.indexOf("l"));
+                if (speech.text.includes("r")) square.moveRight(speech.text.indexOf("r"));
+                if (speech.text.includes("u")) square.moveUp(speech.text.indexOf("u"));
+                if (speech.text.includes("d")) square.moveDown(speech.text.indexOf("d"));
+                print(speech.text);
+            }
+
+            square = new Square();
+
+        }
+
+        function draw() {
+            background(195, 155, 211);
+            square.draw();
+        }
+
+
+        class Square {
+            constructor() {
+                this.x = width / 2;
+                this.y = height / 2;
+            }
+
+            draw() {
+                fill(241, 196, 15);
+                noStroke();
+                rect(this.x, this.y, 50, 50);
+            }
+
+            moveLeft(n) {
+                this.x -= n;
+            }
+
+            moveRight(n) {
+                this.x += n;
+            }
+            moveUp(n) {
+                this.y -= n;
+            }
+
+            moveDown(n) {
+                this.y += n;
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>
